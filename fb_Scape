@@ -1,0 +1,57 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By as by
+import time
+from selenium.webdriver.common.keys import Keys as keys
+driver = webdriver.Chrome(r'C:\Users\LAP\PycharmProjects\selenium proj\Drivers\chromedriver.exe')
+driver.maximize_window()
+import json
+chrome_options = webdriver.ChromeOptions()
+prefs = {"profile.default_content_setting_values.notifications" : 2}
+chrome_options.add_experimental_option("prefs",prefs)
+
+driver.get("https://www.facebook.com/")
+username = driver.find_element_by_id("email")
+password = driver.find_element_by_id("pass")
+submit   = driver.find_element(by.XPATH,'/html/body/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[1]/form/div[2]/button')
+username.send_keys("9494626773")
+password.send_keys("Thillak@2002")
+
+submit.click()
+
+time.sleep(10)
+s=driver.find_element (by.XPATH,'/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/label/input')
+s.send_keys("Anbu Dhoni")
+time.sleep(5)
+driver.find_element(by.XPATH,'/html/body/div[1]/div/div[1]/div/div[2]/div[2]/div/div/div[2]/div/ul/li[1]/div/a/div/div[2]/div').click()
+time.sleep(15)
+study=driver.find_element(by.XPATH,'/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div/div[4]/div[2]/div/div[1]/div[2]/div/div[1]/div/div/div/div/div[2]/div[2]/div/ul/div[2]/div[2]/div/div/span/a').text
+print(study)
+
+
+
+try:
+    dict = {
+        "study": study,
+        "live" :live
+
+    }
+    json_object = json.dumps(dict, indent=4)
+
+    with open("fb_scrape.json", "w") as outfile:
+        outfile.write(json_object)
+
+    f = open('fb_scrape.json')
+
+    data = json.load(f)
+    print(data)
+
+
+
+except:
+    print("could not get data")
+
+
+
+
+
+
